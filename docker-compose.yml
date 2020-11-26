@@ -1,0 +1,16 @@
+version: "3"
+services:
+  streams:
+    image: ubuntu_streams:dev
+    volumes:
+    - ./streams:/var/www/html
+    - ./entrypoint.sh:/entrypoint.sh
+  
+  web:
+    image: python:3.9.0-alpine
+    volumes:
+    - ./streams:/var/www/html
+    command: python3 -m http.server 80 
+    ports:
+     - "80:80"
+    working_dir: /var/www/html
